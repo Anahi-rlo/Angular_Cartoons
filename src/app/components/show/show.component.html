@@ -1,0 +1,14 @@
+<!--  Condicional de que se haga {loqueseapica:condicionalparaqpase, op2:condicion2}-->
+<div class="card h-100" [ngClass]="{'selected': show.isSelected}" (click)="onSelect()">
+    <img [src]="show.image" class="card-img-top img-fluid" alt="image{{show.title}}"
+        style="height: 250px; object-fit: cover;">
+        <button type="button" class="close btn btn-warning" aria-label="Close" style="position: absolute; top: 5px; right: 5px; border-radius: 50%;" (click)="deleteShow()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    <div class="card-body">
+        <h5 class="card-title">{{show.title}}</h5>
+        <p class="card-text">Episodes: {{show.episodes}} </p>
+    </div>
+    <div *ngIf="show.year>=2000" class="card-footer">
+        <small class="text-muted">Year: {{show.year}}</small>
+    </div>

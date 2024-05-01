@@ -1,0 +1,20 @@
+<h1>Contador component</h1>
+<p> Contador {{contador}}</p>
+
+<!--directiva if Condicion si se renderiza  -->
+<button *ngIf="contador>0" (click)="decrementa()">-1</button>
+<button *ngIf="contador<20" (click)="incrementa()">+1 </button>
+
+<!--  directiva for  -->
+<ul>
+    <li *ngFor="let nombre of nombres; index as i">{{i+1}} -{{nombre}}</li>
+</ul>
+
+<ol>
+    <li>Roberto</li>
+    <li>Roberto</li>
+    <li>Roberto</li>
+    <li>Roberto</li>
+</ol>
+
+<button *ngFor="let nombre of nombres">{{nombre}}</button>
