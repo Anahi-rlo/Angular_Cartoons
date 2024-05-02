@@ -1,30 +1,11 @@
 const { Router } = require("express");
+const { getUsers, createUser, deleteUser, updateUser } = require("../controllers/users");
 
 const router = Router();
 
-//se escribe la subruta
-router.get("/", function (req, res) {
-    res.status(200).json({
-        msg: "API users GET /"
-    });
-});
-
-router.post("/", function (req, res) {
-    res.status(200).json({
-        msg: "API users POST /"
-    });
-});
-
-router.put("/", function (req, res) {
-    res.status(200).json({
-        msg: "API users PUT /"
-    });
-});
-
-router.delete("/", function (req, res) {
-    res.status(200).json({
-        msg: "API users DELETE /"
-    });
-});
+router.get("/", getUsers);
+router.post("/", createUser);
+router.put("/",updateUser);
+router.delete("/", deleteUser);
 
 module.exports = router;

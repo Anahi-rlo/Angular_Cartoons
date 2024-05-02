@@ -1,30 +1,10 @@
 const { Router } = require("express");
-
+const { getTvShows, createTvShow, updateTvShow, deleteTvShow } = require("../controllers/tvshows");
 const router = Router();
 
-//se escribe la subruta
-router.get("/", function (req, res) {
-    res.status(200).json({
-        msg: "API tvshows GET /"
-    });
-});
-
-router.post("/", function (req, res) {
-    res.status(200).json({
-        msg: "API tvshows POST /"
-    });
-});
-
-router.put("/", function (req, res) {
-    res.status(200).json({
-        msg: "API tvshows PUT /"
-    });
-});
-
-router.delete("/", function (req, res) {
-    res.status(200).json({
-        msg: "API tvshows DELETE /"
-    });
-});
+router.get("/", getTvShows);
+router.post("/", createTvShow);
+router.put("/",updateTvShow);
+router.delete("/", deleteTvShow);
 
 module.exports = router;
