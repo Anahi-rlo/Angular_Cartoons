@@ -1,5 +1,6 @@
 import { Component,EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TvShowsService } from '../../services/tv-shows.service';
 
 @Component({
   selector: 'app-controls',
@@ -9,35 +10,27 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './controls.component.css'
 })
 export class ControlsComponent {
-  @Output()
-  public setAllAs : EventEmitter<boolean> = new EventEmitter();
 
-  @Output()
-  public invertAll : EventEmitter<void> = new EventEmitter();
-  
-  //manda el string de busqueda
-  @Output()
-  public onSearch: EventEmitter<string> = new EventEmitter();
-
+  constructor(private TvShowsService : TvShowsService){
+  }
   public searchTerm : string =""; 
 
   public onClickSetAll ( ):void{
-    console.log("Click en seleccionar todos");
-    this.setAllAs.emit(true);
+    this.TvShowsService.setAllAs(true);
   };
 
   public onClickUnsetAll ():void{
     console.log("Click en deseleccionar todos");
-    this.setAllAs.emit(false);
+    this.TvShowsService.setAllAs(false);
   };
 
   public onClickChangeOrder():void{
-    this.invertAll.emit();
+    this.TvShowsService.onClickChangeOrder();
   }
 
   //hace la accion de busqueda
   public onClickSearch(): void{
-    this.onSearch.emit(this.searchTerm);
+    this.TvShowsService.searchByTerm(this.searchTerm);
   }
 
 }

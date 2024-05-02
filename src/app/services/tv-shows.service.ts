@@ -58,19 +58,19 @@ export class TvShowsService {
     "id": 14
   }]
 
-  public tvShows2 : Show[] = this.tvShows
+  public tvShows2: Show[] = this.tvShows
 
   constructor() { }
 
   public delete(value: number): void {
     console.log("Click en eliminar tarjeta desde el servicio");
     this.tvShows.splice(value, 1);
-  
-  
+
+
   }
 
-  public searchByTerm( value: string ){
-    this.tvShows = this.tvShows2.filter( item => item.title.toLocaleUpperCase().includes(value.toLocaleUpperCase()));
+  public searchByTerm(value: string) {
+    this.tvShows = this.tvShows2.filter(item => item.title.toLocaleUpperCase().includes(value.toLocaleUpperCase()));
   }
 
   public incrementa(): void {
@@ -79,5 +79,15 @@ export class TvShowsService {
 
   public decrementa(): void {
     this.contador--;
+  }
+
+  public setAllAs(value: boolean): void {
+    this.tvShows.forEach(item => item.isSelected = value);
+    console.log("Accion desde el servicio");
+  }
+
+  public onClickChangeOrder(): void {
+    console.log("Se invierten tarjetas desde el servicio");
+    this.tvShows.reverse();
   }
 }

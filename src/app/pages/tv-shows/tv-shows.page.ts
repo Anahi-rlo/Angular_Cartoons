@@ -34,22 +34,4 @@ export class TvShowsPage {
     return this.TvShowsService.tvShows2;
   }
 
-  public setAllAs(value :boolean): void {
-    this.tvShows.forEach(item => item.isSelected = value);
-    console.log('Accion desde el app component');
-  }
-
-  public invertAll(): void {
-    console.log("Se invierten tarjetas en app component");
-    this.tvShows.reverse();
-  }
-
-  public deleteSure (value : number):void{
-    this.TvShowsService.delete(value);
-  }
-
-  //recibe cadena, hace busqueda
-  public searchByTerm(value : string): void{
-    this.TvShowsService.searchByTerm(value);
-  }
 }
