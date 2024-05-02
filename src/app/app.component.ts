@@ -8,12 +8,11 @@ import { ImagenComponent } from './components/imagen/imagen.component';
 import { ShowsListComponent } from './components/shows-list/shows-list.component';
 import { Show } from './interfaces/show.interface';
 import { ShowComponent } from './components/show/show.component';
-import { ControlsComponent } from './controls/controls.component';
+import { ControlsComponent } from './components/controls/controls.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  //imports: [RouterOutlet,HeaderComponent, ContentComponent, FooterComponent],
   imports: [RouterOutlet, ContadorComponent, ImagenComponent, ShowsListComponent, ShowComponent, ControlsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -71,9 +70,8 @@ export class AppComponent {
     "id": 14
   }]
 
-  public tvShows2: Show[] = []
+  public tvShows2: Show[] = this.tvShows1;
 
-//mandamos el parametro por el hijo
   public setAllAs(value :boolean): void {
     this.tvShows1.forEach(item => item.isSelected = value);
     this.tvShows2.forEach(item => item.isSelected = value);
@@ -87,16 +85,11 @@ export class AppComponent {
   public deleteSure (value : number):void{
     this.tvShows1.splice(value, 1);
   }
-  
-  // public onRemove(value: Show): void{
-  //   this.tvShows1= this.tvShows1.filter(show => show.id != value.id); 
-  // }
+
+  //recibe cadena, hace busqueda
+  public searchByTerm(value : string): void{
+    this.tvShows1 = this.tvShows2.filter(item => item.title.toLocaleUpperCase().includes(value.toLocaleUpperCase()));
+  }
 
   
-  //public setAllAs(value :boolean): void {
-    // this.tvShows1.forEach(item => item.isSelected = value);
-    // this.tvShows2.forEach(item => item.isSelected = value);
-  //}
-
-
 }//si la ponemos private no la podemos usar en .html a pesar de ser del mismo componente 

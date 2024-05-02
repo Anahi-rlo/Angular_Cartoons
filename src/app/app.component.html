@@ -1,13 +1,3 @@
-<!-- <app-header></app-header>
-  <app-content></app-content>
-  <app-footer></app-footer> -->
-
-<!-- <h1>{{titulo}}</h1>
-<p>Hola mundo desde app component</p>
-
-<app-imagen></app-imagen>
-<app-contador></app-contador> -->
-<app-controls (setAllAs)="setAllAs($event)" (invertAll)="invertAll()" ></app-controls>
+<app-controls (setAllAs)="setAllAs($event)" (invertAll)="invertAll()" (onSearch)="searchByTerm($event)"></app-controls>
 <app-shows-list [tvShows]="tvShows1" (deleteSure)="deleteSure($event)"></app-shows-list>
-<!-- <app-shows-list [tvShows]="tvShows2"></app-shows-list>
-<app-show [show]="tvShows2[0]"></app-show> -->
+

@@ -1,0 +1,7 @@
+<button (click)="onClickSetAll()">Seleccionar Todos</button>
+<button (click)="onClickUnsetAll()">Deseleccionar Todos</button>
+<button (click)="onClickChangeOrder()">Invertir Orden</button>
+<!-- [(ngModel)] ha de bananas = directiva q nos da la posibilidad de conectar bidireccionalmente 
+el imput con la propiedad de este componente, para usarlo necesitamos importarlo -->
+<input type="text" [(ngModel)]="searchTerm">
+<button (click)="onClickSearch()">Buscar</button>
