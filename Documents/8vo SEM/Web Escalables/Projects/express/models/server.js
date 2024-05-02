@@ -15,27 +15,39 @@ class Server {
     //metodo donde registramos todas las rutas
     routes() {
         this.app.get(process.env.RUTA, function (req, res) {
-            res.send("Hola desde miruta de variables de entorno");
+            res.status(200).json({
+                msg: "API GET /"
+            });
         });
 
         this.app.get('/', function (req, res) {
-            res.send("Hola mundo");
+            res.status(200).json({
+                msg: "API GET /"
+            });
         });
 
         this.app.get('/hola-mundo', function (req, res) {
-            res.send("Hola desde ruta diferente");
+            res.status(200).json({
+                msg: "API GET /"
+            });
         });
 
         this.app.post('/', function (req, res) {
-            res.send("Hola con post");
+            res.status(200).json({
+                msg: "API POST /"
+            });
         });
 
         this.app.get('*', function (req, res) {
-            res.send("no existe ruta");
+            res.status(404).json({
+                msg: "Error ruta no encontrada"
+            });
         });
 
         this.app.post('*', function (req, res) {
-            res.send("no existe ruta");
+            res.status(404).json({
+                msg: "Error ruta no encontrada"
+            });
         });
     }
 
