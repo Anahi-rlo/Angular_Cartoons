@@ -1,21 +1,34 @@
 const { request, response } = require("express");
 
-//dfinimos que son request y response para tener todas sus funciones de express
+//query params
 const getTvShows = (req = request, res = response) => {
+    const params = req.query;
+
     res.status(200).json({
-        msg: "API tvshows GET /"
+        msg: "API tvshows GET /",
+        params
     });
 }
 
+//request body
 const createTvShow = (req = request, res = response) => {
+    //recibir solicitud
+    const body = req.body;
+
+    //mandamos respuesta
     res.status(200).json({
-        msg: "API tvshow POST /"
+        msg: "API tvshow POST /",
+        body
     });
 }
 
+//url: cambiaos su ruta agregandole :id -> necesitamos cambiar la ruta
 const updateTvShow = (req = request, res = response) => {
+    const params = req.params;
+
     res.status(200).json({
-        msg: "API tvshow PUT /"
+        msg: "API tvshow PUT /",
+        params
     });
 }
 

@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 
 class Server {
 
@@ -13,9 +14,16 @@ class Server {
     }
 
     routes() {
-        // el / es de subrutas, la 1er parte 
+        //configura rutas: las peticiones q apuntan a estas rutas van a ser manejadas por esos mismos archivos
         this.app.use( this.usersPath, require("../routes/users"));
         this.app.use(this.tvshowsPath, require("../routes/tvshows"));
+    }
+
+    middlewares(){
+        //ruta para informar que recibimos informacion formato json
+        this.app.use(express.json);
+        this.app.use(cors());
+
     }
 
     listen() {

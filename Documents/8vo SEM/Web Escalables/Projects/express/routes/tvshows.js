@@ -4,7 +4,8 @@ const router = Router();
 
 router.get("/", getTvShows);
 router.post("/", createTvShow);
-router.put("/",updateTvShow);
+//: para que sea un valor, no palabra
+router.put("/:id",updateTvShow);
 router.delete("/", deleteTvShow);
 
 module.exports = router;
