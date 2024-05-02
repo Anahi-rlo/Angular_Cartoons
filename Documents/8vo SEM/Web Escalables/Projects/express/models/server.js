@@ -7,9 +7,10 @@ class Server {
         this.app = express();
         this.port = process.env.PORT;
 
-        //Por buena practica
+        //Paths para APIS
         this.usersPath= "/api/users";
         this.tvshowsPath= "/api/tvshows";
+        this.middlewares();
         this.routes();
     }
 
@@ -21,7 +22,7 @@ class Server {
 
     middlewares(){
         //ruta para informar que recibimos informacion formato json
-        this.app.use(express.json);
+        this.app.use(express.json());
         this.app.use(cors());
 
     }
