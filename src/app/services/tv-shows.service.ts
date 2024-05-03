@@ -23,7 +23,7 @@ export class TvShowsService {
   }
 
   public searchByTerm(value: string) {
-    this.tvShows = this.tvShows2.filter(item => item.title.toLocaleUpperCase().includes(value.toLocaleUpperCase()));
+    this.fetchTvShows(value);
   }
 
   public incrementa(): void {
@@ -44,15 +44,15 @@ export class TvShowsService {
     this.tvShows.reverse();
   }
 
-  public fetchTvShows(): void {
+  public fetchTvShows(searchTerm = ""): void {
     //observable que checa que sea exitoso
-    this.http.get("http://localhost:8080/api/tvshows").subscribe({
+    this.http.get("http://localhost:8080/api/tvshows?searchTerm=" + searchTerm).subscribe({
       next: (response: any) => {
-        this.tvShows = response.result;
-      },
+      this.tvShows = response.result;
+    },
       error: (error: any) => {
         console.log(error);
       },
     })
-  }
+}
 }
