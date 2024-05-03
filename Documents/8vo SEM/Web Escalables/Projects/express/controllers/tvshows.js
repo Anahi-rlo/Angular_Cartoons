@@ -1,11 +1,11 @@
 const { request, response } = require("express");
 const TvShow = require("../models/tvshow.js");
 
-//query params
+//query params- buscar varios
 const getTvShows = (req = request, res = response) => {
-    const params = req.query;
+    const { searchTerm } = req.query;
 
-    TvShow.find().then(
+    TvShow.find({ title: RegExp(searchTerm) }).then(
         (result) => {
             res.status(200).json({
                 msg: "API TvShow GET /",
@@ -21,6 +21,24 @@ const getTvShows = (req = request, res = response) => {
         }
     );
 }
+
+//url- buscar uno solo
+const getTvShowById = (req = request, res = response) => {
+    const { id } = req.params;
+
+    TvShow.findOne({ id: id }).then(
+        (result) => {
+            res.status(200).json({
+                msg: "API TvShow GET by Id /",
+                result
+            });
+        }).catch((error) => {
+            res.status(500).json({
+                msg: "Error al obtener los datos",
+                result: null
+            });
+        });
+};
 
 //request body
 const createTvShow = (req = request, res = response) => {
@@ -52,6 +70,7 @@ const deleteTvShow = (req = request, res = response) => {
 
 module.exports = {
     getTvShows,
+    getTvShowById,
     createTvShow,
     updateTvShow,
     deleteTvShow
