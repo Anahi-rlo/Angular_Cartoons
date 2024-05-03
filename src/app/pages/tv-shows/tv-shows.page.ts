@@ -21,16 +21,17 @@ export class TvShowsPage {
   public titulo: string = "mi nueva aplicación de Angular";
 
   //hago inyector
-  constructor(private TvShowsService : TvShowsService){
+  constructor(private TvShowsService: TvShowsService) {
+    this.TvShowsService.fetchTvShows();
   }
 
   //obtengo array tvShows
-  get tvShows(): Show[]{
+  get tvShows(): Show[] {
     return this.TvShowsService.tvShows;
   }
 
   //obtengo array tvShows2
-  get tvShows2(): Show[]{
+  get tvShows2(): Show[] {
     return this.TvShowsService.tvShows2;
   }
 
