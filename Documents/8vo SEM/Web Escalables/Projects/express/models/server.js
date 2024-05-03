@@ -1,26 +1,30 @@
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
 
 class Server {
 
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
+        //direccion de  una variable de entorno
+        this.connection_string = process.env.CONNECTION_STRING;
 
-        //Paths para APIS
-        this.usersPath= "/api/users";
-        this.tvshowsPath= "/api/tvshows";
+
+        this.usersPath = "/api/users";
+        this.tvshowsPath = "/api/tvshows";
         this.middlewares();
         this.routes();
+        this.db();
     }
 
     routes() {
         //configura rutas: las peticiones q apuntan a estas rutas van a ser manejadas por esos mismos archivos
-        this.app.use( this.usersPath, require("../routes/users"));
+        this.app.use(this.usersPath, require("../routes/users"));
         this.app.use(this.tvshowsPath, require("../routes/tvshows"));
     }
 
-    middlewares(){
+    middlewares() {
         //ruta para informar que recibimos informacion formato json
         this.app.use(express.json());
         this.app.use(cors());
@@ -33,6 +37,17 @@ class Server {
         });
     }
 
+    db() {
+        mongoose.connect(this.connection_string).then(
+            () => {
+                console.log("Conexion exitosa con la base de datos");
+            }
+        ).catch(//caso contrario de que no se cargue
+            (error) => {
+                console.log("Error al conectar copn la db");
+            }
+        )
+    }
 }
 
 module.exports = Server; 
