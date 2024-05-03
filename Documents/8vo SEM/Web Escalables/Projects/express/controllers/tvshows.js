@@ -42,30 +42,71 @@ const getTvShowById = (req = request, res = response) => {
 
 //request body
 const createTvShow = (req = request, res = response) => {
-    //recibir solicitud
-    const body = req.body;
+    const { title, year, episodes, image, id } = req.body;
 
-    //mandamos respuesta
-    res.status(200).json({
-        msg: "API tvshow POST /",
-        body
-    });
-}
+    if (!title || !episodes || !id) {
+        //validación de que estan todos
+        res.status(400).json({
+            msg: "Faltan datos"
+        })
+        return;
+    }
+
+    const newTvShow = TvShow({
+        title,
+        year,
+        episodes,
+        image,
+        id
+    })
+
+    newTvShow.save().then(() => {
+        res.status(200).json({
+            msg: "Elemento insertado con exito"
+        });
+    }).catch(() => {
+        res.status(500).json({
+            msg: "Error al insertar el elemento"
+        });
+    })
+};
 
 //url: cambiaos su ruta agregandole :id -> necesitamos cambiar la ruta
 const updateTvShow = (req = request, res = response) => {
-    const params = req.params;
+    // const { id } = req.params;
+    const { id, title, year, episodes, image } = req.body;
 
-    res.status(200).json({
-        msg: "API tvshow PUT /",
-        params
-    });
+    if (!title || !episodes  || !id) {
+        res.status(400).json({
+            msg: "Faltan datos"
+        })
+        return;
+    }
+
+    TvShow.updateOne({ id: id }, { title: title, year: year, episodes: episodes, image: image }).then(() => {
+        res.status(200).json({
+            msg: "Elemento actualizado con exito"
+        });
+    }).catch(() => {
+        res.status(500).json({
+            msg: "Error al actualizar el elemento"
+        });
+    })
 }
 
+//url
 const deleteTvShow = (req = request, res = response) => {
-    res.status(200).json({
-        msg: "API tvshow DELETE /"
-    });
+    const { id } = req.params;
+
+    TvShow.deleteOne({ id: id }).then(() => {
+        res.status(200).json({
+            msg: "Elemento eliminado con exito"
+        });
+    }).catch(() => {
+        res.status(500).json({
+            msg: "Error al eliminar el elemento"
+        });
+    })
 }
 
 module.exports = {

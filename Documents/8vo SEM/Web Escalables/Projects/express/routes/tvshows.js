@@ -6,6 +6,6 @@ router.get("/", getTvShows);
 router.post("/", createTvShow);
 router.get("/:id", getTvShowById);
 router.put("/:id",updateTvShow);
-router.delete("/", deleteTvShow);
+router.delete("/:id", deleteTvShow);
 
 module.exports = router;
