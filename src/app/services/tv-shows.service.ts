@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Show } from '../interfaces/show.interface';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,8 @@ export class TvShowsService {
 
   public tvShows2: Show[] = this.tvShows
 
+  public _id: number= 0;
+
   public show: Show = {
     episodes: 0,
     id: 0,
@@ -19,7 +22,7 @@ export class TvShowsService {
     title: '',
     year: 0
   };
-  
+
 
 
   //inyectamos
@@ -58,11 +61,12 @@ export class TvShowsService {
 
   public onClickShowInfo(id: number): void {
     this.getTvShowById(id).subscribe({
-      next: (response:any) => {
+      next: (response: any) => {
         this.show.title = response.result.title;
         this.show.image = response.result.image;
         this.show.episodes = response.result.episodes;
-        this.show.year =response.result.year;
+        this.show.year = response.result.year; 
+        this.show.id = response.result.id;
         console.log(response.result.id);
       },
       error: (error) => {
@@ -70,6 +74,7 @@ export class TvShowsService {
       },
     });
   }
+
 
   public getTvShowById(id: number) {
     return this.http.get<Show>(`${this.apiUrl}/${id}`);
@@ -86,4 +91,74 @@ export class TvShowsService {
       },
     })
   }
+
+  public onClickDelete(id: number): void {
+    this.deleteTvShow(id).subscribe({
+      next: () => {
+        console.log("Show deleted successfully");
+        window.location.reload();
+        // Aquí puedes realizar alguna acción adicional si lo deseas, como recargar la lista de shows
+      },
+      error: (error) => {
+        console.log("Error deleting show:", error);
+      }
+    });
+  }
+
+  public deleteTvShow(id: number): Observable<any> {
+    return this.http.delete(`http://localhost:8080/api/tvshows/${id}`);
+  }
+
+  public onClickAdd(title:string, year:number, episodes:number, image: string, id: number): void{
+    const existingShow = this.tvShows.find(show => show.id === id);
+    if (existingShow) {
+      console.log("Ya existe un show con ese ID");
+      return;
+    }
+  
+    const newShow: Show = {
+      title,
+      year,
+      episodes,
+      image,
+      id};
+
+      this.tvShows.push(newShow);
+
+      this.http.post<void>(this.apiUrl, newShow).subscribe({
+        next: () => {
+          console.log("Show added successfully");
+          window.location.reload();
+        },
+        error: (error) => {
+          console.log("Error adding show:", error);
+        }
+      });
+  }
+
+
+    public onClickEdit(title: string, year: number, episodes: number, image: string, id: number): void {
+      const existingShow = this.tvShows.find(show => show.id === id);
+      if (!existingShow) {
+        console.log("No existe un show con ese ID");
+        return;
+      }
+  
+      // Actualizar el show localmente (opcional)
+      existingShow.title = title;
+      existingShow.year = year;
+      existingShow.episodes = episodes;
+      existingShow.image = image;
+  
+      // Realizar la llamada a la API para actualizar el show en la base de datos
+      this.http.put<void>(`${this.apiUrl}/${id}`, { title, year, episodes, image }).subscribe({
+        next: () => {
+          console.log("Show updated successfully");
+          // Aquí puedes realizar alguna acción adicional si lo deseas, como recargar la lista de shows
+        },
+        error: (error) => {
+          console.log("Error updating show:", error);
+        }
+      });
+    }
 }

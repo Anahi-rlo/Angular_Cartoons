@@ -14,6 +14,12 @@ export class ControlsComponent {
   constructor(private TvShowsService : TvShowsService){
   }
   public searchTerm : string =""; 
+  public titleInput : string = ""; 
+  public yearInput : number =0; 
+  public episodesInput : number =0; 
+  public imageInput : string =""; 
+  public idInput : number =0; 
+  public logs : string =""; 
 
   public onClickSetAll ( ):void{
     this.TvShowsService.setAllAs(true);
@@ -31,6 +37,16 @@ export class ControlsComponent {
   //hace la accion de busqueda
   public onClickSearch(): void{
     this.TvShowsService.searchByTerm(this.searchTerm);
+  }
+
+  public onClickAdd(): void{
+    if (!this.idInput || !this.titleInput || !this.episodesInput) {
+      console.log("ID, título y número de episodios son campos obligatorios");
+      this.logs="ID, título y número de episodios son campos obligatorios";
+      return;
+    }
+
+    this.TvShowsService.onClickAdd(this.titleInput, this.yearInput, this.episodesInput, this.imageInput, this.idInput);
   }
 
 }

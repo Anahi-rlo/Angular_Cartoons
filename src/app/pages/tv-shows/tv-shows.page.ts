@@ -8,11 +8,13 @@ import { ShowComponent } from '../../components/show/show.component';
 import { ControlsComponent } from '../../components/controls/controls.component';
 import { TvShowsService } from '../../services/tv-shows.service';
 import { ModalComponent } from '../../components/modal/modal.component';
+import { ModalEditComponent } from '../../components/modal-edit/modal-edit.component';
+
 
 @Component({
   selector: 'app-tv-shows',
   standalone: true,
-  imports: [RouterOutlet, ContadorComponent, ImagenComponent, ShowsListComponent, ShowComponent, ControlsComponent, ModalComponent],
+  imports: [RouterOutlet, ContadorComponent, ImagenComponent, ShowsListComponent, ShowComponent, ControlsComponent,ModalComponent, ModalEditComponent],
   templateUrl: './tv-shows.page.html',
   styleUrl: './tv-shows.page.css'
 })

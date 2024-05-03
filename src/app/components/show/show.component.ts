@@ -29,6 +29,10 @@ export class ShowComponent {
   }
 
   public deleteShow():void{
-    this.TvShowsService.delete(this.show.id);
+    this.TvShowsService.onClickDelete(this.show.id);
+  }
+
+  public dataEdit(): void{
+    this.TvShowsService.onClickShowInfo(this.show.id);
   }
 }
