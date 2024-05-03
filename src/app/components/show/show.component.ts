@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Show } from '../../interfaces/show.interface';
 import { NgClass, NgIf } from '@angular/common';
 import { TvShowsService } from '../../services/tv-shows.service';
@@ -23,8 +23,9 @@ export class ShowComponent {
   constructor(private TvShowsService : TvShowsService){
   }
 
-  public onSelect():void{
-    this.show.isSelected=!this.show.isSelected;
+  public onSelect(): void {
+    this.TvShowsService.onClickShowInfo(this.show.id);
+    
   }
 
   public deleteShow():void{

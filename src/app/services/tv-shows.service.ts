@@ -12,6 +12,16 @@ export class TvShowsService {
 
   public tvShows2: Show[] = this.tvShows
 
+  public show: Show = {
+    episodes: 0,
+    id: 0,
+    image: "",
+    title: '',
+    year: 0
+  };
+  
+
+
   //inyectamos
   constructor(private http: HttpClient) { }
 
@@ -42,17 +52,38 @@ export class TvShowsService {
   public onClickChangeOrder(): void {
     console.log("Se invierten tarjetas desde el servicio");
     this.tvShows.reverse();
+
+  } private apiUrl = 'http://localhost:8080/api/tvshows';
+
+
+  public onClickShowInfo(id: number): void {
+    this.getTvShowById(id).subscribe({
+      next: (response:any) => {
+        this.show.title = response.result.title;
+        this.show.image = response.result.image;
+        this.show.episodes = response.result.episodes;
+        this.show.year =response.result.year;
+        console.log(response.result.id);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
+  public getTvShowById(id: number) {
+    return this.http.get<Show>(`${this.apiUrl}/${id}`);
   }
 
   public fetchTvShows(searchTerm = ""): void {
     //observable que checa que sea exitoso
     this.http.get("http://localhost:8080/api/tvshows?searchTerm=" + searchTerm).subscribe({
       next: (response: any) => {
-      this.tvShows = response.result;
-    },
+        this.tvShows = response.result;
+      },
       error: (error: any) => {
         console.log(error);
       },
     })
-}
+  }
 }

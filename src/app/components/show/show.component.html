@@ -1,5 +1,5 @@
 <!--  Condicional de que se haga {loqueseapica:condicionalparaqpase, op2:condicion2}-->
-<div class="card h-100" [ngClass]="{'selected': show.isSelected}" (click)="onSelect()">
+<div type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="card h-100" [ngClass]="{'selected': show.isSelected}" (click)="onSelect()">
     <img [src]="show.image" class="card-img-top img-fluid" alt="image{{show.title}}"
         style="height: 250px; object-fit: cover;">
         <button type="button" class="close btn btn-warning" aria-label="Close" style="position: absolute; top: 5px; right: 5px; border-radius: 50%;" (click)="deleteShow()">
