@@ -40,13 +40,13 @@ export class ModalEditComponent {
 
   public onClickEdit(): void {
     console.log(this.titleInput );
-    if (!this.idInput || !this.titleInput || !this.episodesInput) {
+    if (!this.titleInput || !this.episodesInput) {
       console.log("ID, título y número de episodios son campos obligatorios");
       this.logs = "ID, título y número de episodios son campos obligatorios";
       return;
     }
 
-    this.TvShowsService.onClickEdit(this.titleInput, this.yearInput, this.episodesInput, this.imageInput, this.idInput);
+    this.TvShowsService.onClickEdit(this.titleInput, this.yearInput, this.episodesInput, this.imageInput, this.show.id);
   }
 
 }

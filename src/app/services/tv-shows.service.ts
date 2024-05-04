@@ -151,9 +151,10 @@ export class TvShowsService {
       existingShow.image = image;
   
       // Realizar la llamada a la API para actualizar el show en la base de datos
-      this.http.put<void>(`${this.apiUrl}/${id}`, { title, year, episodes, image }).subscribe({
+      this.http.put<void>(`${this.apiUrl}/${id}`, { id,title, year, episodes, image }).subscribe({
         next: () => {
           console.log("Show updated successfully");
+          window.location.reload();
           // Aquí puedes realizar alguna acción adicional si lo deseas, como recargar la lista de shows
         },
         error: (error) => {
