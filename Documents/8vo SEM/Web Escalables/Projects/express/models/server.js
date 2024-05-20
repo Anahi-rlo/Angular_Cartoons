@@ -13,6 +13,8 @@ class Server {
 
         this.usersPath = "/api/users";
         this.tvshowsPath = "/api/tvshows";
+        this.authPath = "/api/auth";
+
         this.middlewares();
         this.routes();
         this.db();
@@ -22,6 +24,7 @@ class Server {
         //configura rutas: las peticiones q apuntan a estas rutas van a ser manejadas por esos mismos archivos
         this.app.use(this.usersPath, require("../routes/users"));
         this.app.use(this.tvshowsPath, require("../routes/tvshows"));
+        this.app.use(this.authPath, require("../routes/auth"));
     }
 
     middlewares() {
